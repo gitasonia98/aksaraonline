@@ -1,0 +1,29 @@
+sudo: required
+dist: trusty
+language: php
+
+php:
+  - 7.1
+
+branches:
+    only:
+      - master #-> QA/ staging server
+      - develop #->DevServer
+
+     #sebelum melakukan atau eksekusi script
+     #install kebutuhan os. exit :mod-php dll.
+
+before_script:
+        - cp .env.travis .env
+        - composer install --no-interaction #untuk interaksi package
+        - php artisan key:generate #untuk generate token
+
+
+#script -> main excution
+script :
+        - ./vendor/bin/phpunit
+      #ketika kondisi main execution finish
+after_success:
+
+
+     
